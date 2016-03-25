@@ -1,0 +1,101 @@
+public static class KZfun
+{
+///
+/// 模拟Lamdan表达式
+///
+/// 当前对象
+/// 泛型委托
+/// 结果集
+public static IEnumerable Where(this IEnumerable val, Func predicate)
+{
+var b1 = new Func(predicate);
+List temp = new List();
+foreach (var xx in val)
+{
+if (b1(xx))
+{
+temp.Add(xx);
+}
+}
+return temp;
+}
+///
+/// 重载
+///
+/// 类型
+/// 当前对象
+/// 结果集
+public static IEnumerable Where(this IEnumerable val)
+{
+return val;
+}
+///
+/// 返回和
+///
+/// 当前对象
+/// 和
+public static int? Sum(this IEnumerable val)
+{
+int? sum = 0;
+foreach (var xx in val)
+{
+sum += xx;
+}
+return sum;
+}
+///
+/// 返回最大值
+///
+/// 当前对象
+/// 最大值
+public static int Max(this IEnumerable val)
+{
+int max = 0;
+foreach (var xx in val)
+{
+if (xx >= max)
+{
+max = xx;
+}
+}
+return max;
+}
+
+///
+/// 返回包含某个字符的字符串
+///
+/// 当前对象
+/// 字符
+/// 包含chars字符的字符串
+public static List GetOneStr(this IEnumerable val, string chars)
+{
+List temp = new List();
+foreach (var xx in val)
+{
+if (xx.Contains(chars))
+{
+temp.Add(xx);
+}
+}
+return temp;
+}
+}
+
+//调用
+ static void Main(string[] args)
+        {
+
+            List test = new List { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            int sum = test.Where(a => { return a > 3; }).Sum();
+            int max = test.Where(a => { return a > 3; }).Max();
+            Console.WriteLine(sum);
+            Console.WriteLine(max);
+
+            List Strs = new List() {"aaaa","abbb","caaaa","cccc","bbbbb"};
+            Strs = Strs.Where().GetOneStr("a");
+            foreach (var xx in Strs)
+            {
+                Console.WriteLine(xx);
+            }
+            Console.ReadKey();
+        }
